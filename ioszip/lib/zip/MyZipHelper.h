@@ -74,5 +74,36 @@
 +(BOOL) unZipfromPath:(NSString *) pFullPath toPath:(NSString *)pPath;
 //从长长的完整路径（.../.../test.zip）到，文件夹相对路径（/test）
 +(void) unZipfromPathCallBack:(NSString *) pFullPath toPath:(NSString *)pPath  success:(void(^)(BOOL pResult)) pSuccessHandler error:(void(^)(NSException *pException))pErrorHandler;
+/*
+ 举个栗子
+ -(void) doTestUnzip
+ {
+ NSString * tFile=@"Test.zip";
+ //copy
+ BOOL suc= [gFileHelper CopyDirectory:[gFileHelper dirResource:tFile] desdir:[gFileHelper dirDoc:[ServerForResource relationPathDocForDownLoadFileName:tFile mUserPath:kDefUser]] fileManager:[NSFileManager defaultManager]];
+ NSLog(@"%@",suc?@"Y":@"N");
+ NSString * saveName=[ServerForResource relationPathDocForDownLoadFileName:tFile mUserPath:kDefUser];//[gFileHelper converPathToShortName:self.mParmDic[kPath]];
+ NSString * savePath=[gFileHelper dirDoc:saveName];
+ NSString *unZipPath=[gFileHelper dirDoc:[ServerForResource relationPathDocForLocalUnzipUserPath:kDefUser]];
+ 
+ //[dataService doCopyResource];
+ [MyZipHelper unZipfromPathCallBack:savePath toPath:unZipPath success:^(BOOL pResult) {
+ //        MyButtonItem *cancelButtonItem = [[MyButtonItem alloc] initWithTitleCallBack:@"确定" mCallBack:^{
+ //            [gFileHelper deleteFileWithFullPath:savePath];
+ //            //隐藏按钮
+ ////            [self setButtonState:NO];
+ //        }];
+ //        UIAlertView * dlg=[[UIAlertView alloc]initWithTitle:@"解压回调结果" message:[NSString stringWithFormat:@"%@",pResult?@"成功":@"失败"] cancelButtonItem:cancelButtonItem otherButtonItems:nil, nil];
+ //        [dlg show];
+ NSLog(@"成功？%@",pResult?@"Y":@"N");
+ [gFileHelper deleteFileWithFullPath:savePath];
+ 
+ //NSLog(@"解压回调结果,%@",pResult?@"y":@"n");
+ } error:^(NSException *pException) {
+ NSLog(@"回调异常%@",pException);
+ }];
+ 
+ }
 
+ */
 @end
